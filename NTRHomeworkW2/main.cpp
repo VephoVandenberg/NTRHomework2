@@ -32,7 +32,7 @@ void printMem(uint8_t* start, const size_t nBytes)
 void test()
 {
 	// Generate memory
-	uint8_t testMem1[3] = {0, 0, 0};
+	uint8_t testMem1[3] = {255, 255, 255};
 	const size_t memBytes1 = sizeof(testMem1) / sizeof(uint8_t);
 
 	// Print generated memory
@@ -42,7 +42,7 @@ void test()
 	// So in this test we have 24 bits,
 	// let's invert from 7th bit 5 bits
 	std::cout << "<Memory with inverted bits>" << '\n';
-	Inverter::invertBits(testMem1, memBytes1, 24, 5);
+	Inverter::invertBits(testMem1, memBytes1, 5, 5);
 	printMem(testMem1, memBytes1);
 
 	// Now let's test one more function,
