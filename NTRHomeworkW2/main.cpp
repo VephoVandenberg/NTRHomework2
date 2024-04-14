@@ -42,7 +42,7 @@ void test()
 	// So in this test we have 24 bits,
 	// let's invert from 7th bit 5 bits
 	std::cout << "<Memory with inverted bits>" << '\n';
-	Inverter::invertBits(testMem1, memBytes1, 7, 5);
+	Inverter::invertBits(testMem1, memBytes1, 24, 5);
 	printMem(testMem1, memBytes1);
 
 	// Now let's test one more function,

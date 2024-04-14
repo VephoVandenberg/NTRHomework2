@@ -16,7 +16,7 @@ void Inverter::invertBits(uint8_t* start, const size_t nBytes,
 {
 	const size_t nBits = nBytes * g_bitsInByte;
 
-	if (startBit > nBits)
+	if (startBit >= nBits)
 	{
 		std::cout
 			<< "ERROR::Invalid start position of invertion! Valid range 0 : " << nBits << '\n';
@@ -36,7 +36,7 @@ void Inverter::invertBits(uint8_t* start, const size_t nBytes,
 
 	for (const auto pos : bitPositions)
 	{
-		if (pos > nBits)
+		if (pos >= nBits)
 		{ 
 			std::cout << "ERROR::Invalid start position" << pos << "! Valid range 0 : " << nBits << '\n';
 			continue;
