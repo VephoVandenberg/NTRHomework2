@@ -1,7 +1,10 @@
 #include "homework3/LinkedList.hpp"
+#include "homework3/homework3.hpp"
 
 int main(int argc, char** argv)
 {
+	homework3::testHomework3();
+
 	List<int> l1;
 
 	
