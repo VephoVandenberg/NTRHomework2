@@ -15,17 +15,13 @@ int main(int argc, char** argv)
 	l2.add(-1);
 	l2.add(-2);
 	l2.add(-3);
-	l2.addFront(-11);
-	l2.addFront(-22);
+	l2.add(-11);
+	l2.add(-22);
+	l2.insert(151, 1);
 	int a = l2.popFront();
 	int b = l2.popFront();
 
-	l2 = l1;
-
-	List<int> l3;
-	l3 = std::move(l2);
-
-	l1.clear();
+	
 	
 	return 0;
 }

@@ -67,7 +67,7 @@ List<T>::List(const List<T>& list)
 	{
 		auto foreignNode = list.m_start;
 		auto curr = new Node(foreignNode->m_value);
-		for (size_t iNode = 0; iNode < m_size; iNode++)
+		for (size_t iNode = 0; iNode < m_size - 1; iNode++)
 		{
 			foreignNode = foreignNode->m_next;
 
@@ -307,19 +307,19 @@ void List<T>::remove(const T& val)
 	else
 	{
 		auto curr = m_start;
-		auto prev = nullptr;
+		auto prev = m_start;
 
 		while (curr != nullptr)
 		{
 			if (curr->m_value == val)
 			{
-				prev->next = curr->next;
+				prev->m_next = curr->m_next;
 				delete curr;
 				m_size--;
 				break;
 			}
 			prev = curr;
-			curr = curr->next;
+			curr = curr->m_next;
 		}
 	}
 }
@@ -331,24 +331,25 @@ void List<T>::insert(const T& val, const size_t ind)
 	{
 		addFront(val);
 	}
-	else if (ind == m_size - 1)
+	else if (ind >= m_size - 1)
 	{
 		add(val);
 	}
 	else
 	{
 		auto curr = m_start;
-		auto prev = nullptr;
+		auto prev = m_start;
 		for (size_t iNode = 0; iNode < m_size; iNode++)
 		{
 			if (iNode == ind)
 			{
-				auto node = Node(val, curr);
-				prev->next = node;
+				auto node = new Node(val, curr);
+				prev->m_next = node;
+				m_size++;
 				break;
 			}
 			prev = curr;
-			curr = curr->next;
+			curr = curr->m_next;
 		}
 	}
 }
@@ -363,7 +364,7 @@ bool List<T>::find(const T& val)
 		{
 			return true;
 		}
-		curr = curr->next;
+		curr = curr->m_next;
 	}
 
 	return false;
