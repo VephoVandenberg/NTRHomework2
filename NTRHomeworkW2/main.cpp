@@ -8,8 +8,6 @@ int main(int argc, char** argv)
 	homework3::testHomework3();
 
 	List<int> l1;
-
-	
 	l1.add(1);
 	l1.add(2);
 	
@@ -19,8 +17,8 @@ int main(int argc, char** argv)
 	l2.add(-3);
 	l2.addFront(-11);
 	l2.addFront(-22);
-	l2.popFront();
-	l2.popFront();
+	int a = l2.popFront();
+	int b = l2.popFront();
 
 	l2 = l1;
 

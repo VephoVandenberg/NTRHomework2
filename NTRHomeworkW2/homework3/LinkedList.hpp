@@ -29,8 +29,11 @@ public:
 
 	void add(const T& val);
 	void addFront(const T& val);
-	void pop();
-	void popFront();
+	void remove(const T& val);
+	void insert(const T& val, const size_t ind);
+	bool find(const T& val);
+	T pop();
+	T popFront();
 	void clear();
 
 	inline bool empty() const { return m_size == 0; }
@@ -226,38 +229,49 @@ void List<T>::clear()
 }
 
 template <typename T>
-void List<T>::popFront()
+T List<T>::popFront()
 {
-	if (m_start == nullptr)
+	if (m_size == 0)
 	{
-		return;
+		static_assert(true, "Error::List is empty");
 	}
 
+	T val;
 	if (m_size == 1)
 	{
+		T val = m_start->m_value;
 		delete m_start;
 		m_start = nullptr;
 		m_end = nullptr;
 		m_size--;
-		return;
+		return val;
 	}
 
+	val = m_start->m_value;
 	auto temp = m_start->m_next;
 	delete m_start;
 	m_start = temp;
 	m_size--;
+	return val;
 }
 
 template <typename T>
-void List<T>::pop()
+T List<T>::pop()
 {
+	if (m_size == 0)
+	{
+		static_assert(true, "Error::List is empty");
+	}
+		
+	T val;
 	if (m_start == m_end)
 	{
+		val = m_start->m_value;
 		delete m_start;
 		m_start = nullptr;
 		m_end = nullptr;
 		m_size = 0;
-		return;
+		return val;
 	}
 	
 	auto curr = m_start;
@@ -265,9 +279,92 @@ void List<T>::pop()
 	{
 		curr = curr->m_next;
 	}
-	delete curr->m_next;
 
+	val = curr->m_next->m_value;
+	delete curr->m_next;
 	m_end = curr;
 	m_end->m_next = nullptr;
 	m_size--;
+	return val;
+}
+
+template<typename T>
+void List<T>::remove(const T& val)
+{
+	if (m_size == 0)
+	{
+		return;
+	}
+
+	if (val == m_start->m_value)
+	{
+		popFront();
+	}
+	else if (val == m_end->m_value)
+	{
+		pop();
+	}
+	else
+	{
+		auto curr = m_start;
+		auto prev = nullptr;
+
+		while (curr != nullptr)
+		{
+			if (curr->m_value == val)
+			{
+				prev->next = curr->next;
+				delete curr;
+				m_size--;
+				break;
+			}
+			prev = curr;
+			curr = curr->next;
+		}
+	}
+}
+
+template<typename T>
+void List<T>::insert(const T& val, const size_t ind)
+{	
+	if (ind == 0)
+	{
+		addFront(val);
+	}
+	else if (ind == m_size - 1)
+	{
+		add(val);
+	}
+	else
+	{
+		auto curr = m_start;
+		auto prev = nullptr;
+		for (size_t iNode = 0; iNode < m_size; iNode++)
+		{
+			if (iNode == ind)
+			{
+				auto node = Node(val, curr);
+				prev->next = node;
+				break;
+			}
+			prev = curr;
+			curr = curr->next;
+		}
+	}
+}
+
+template<typename T>
+bool List<T>::find(const T& val)
+{
+	auto curr = m_start;
+	while (curr != nullptr)
+	{
+		if (curr->val == val)
+		{
+			return true;
+		}
+		curr = curr->next;
+	}
+
+	return false;
 }
