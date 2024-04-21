@@ -360,7 +360,7 @@ bool List<T>::find(const T& val)
 	auto curr = m_start;
 	while (curr != nullptr)
 	{
-		if (curr->val == val)
+		if (curr->m_value == val)
 		{
 			return true;
 		}

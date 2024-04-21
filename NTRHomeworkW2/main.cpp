@@ -18,9 +18,9 @@ int main(int argc, char** argv)
 	l2.add(-11);
 	l2.add(-22);
 	l2.insert(151, 1);
-	int a = l2.popFront();
-	int b = l2.popFront();
 
+
+	l2.find(151);
 	
 	
 	return 0;
