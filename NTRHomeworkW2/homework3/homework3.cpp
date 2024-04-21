@@ -35,6 +35,8 @@ struct AbsToken {};
 
 struct SqrToken {};
 
+struct SqrtToken {};
+
 struct Plus {};
 
 struct Minus {};
@@ -45,9 +47,11 @@ struct Modulo {};
 
 struct Divide {};
 
+struct Comma {};
+
 using Token = 
     std::variant<OpeningBracket, ClosingBracket, Number, UnknownToken, MinToken,
-        MaxToken, AbsToken, SqrToken, Plus, Minus, Multiply, Modulo, Divide>;
+        MaxToken, AbsToken, SqrToken, SqrtToken, Plus, Minus, Multiply, Modulo, Divide, Comma>;
 
 // 1234
 
@@ -58,7 +62,8 @@ const std::unordered_map<char, Token> kSymbol2Token{
     {'/', Divide{}}, 
     {'%', Modulo{}},
     {'(', OpeningBracket{}},
-    {')', ClosingBracket{}}
+    {')', ClosingBracket{}},
+    {',', Comma{}}
 };
 
 using Name = std::string;
@@ -67,6 +72,7 @@ const std::unordered_map<Name, Token> kCommand2Token{
     {"min", MinToken{}},
     {"abs", AbsToken{}},
     {"sqr", SqrToken{}},
+    {"sqrt", SqrtToken{}}
 };
 
 int ToDigit(unsigned char symbol) {
@@ -125,12 +131,16 @@ std::vector<Token> Tokenize(const std::string& input) {
             tokens.emplace_back(it->second);
             ++pos;
         }
+        else {
+            tokens.emplace_back(UnknownToken(std::to_string(symbol)));
+            ++pos;
+        }
     }
     return tokens;
 }
 
 void homework3::testHomework3()
 {
-    std::string epxression = "(1 + 2) + 3 * sqr(4) + abs(-1)";
+    std::string epxression = "(1 + 2) + 3 * max(4, 2) + abs(-1)";
     auto tokens = Tokenize(epxression);
 }
